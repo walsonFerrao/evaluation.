@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="menu.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <nav id="nv">
+            <div id="menu">Menu</div>
+            <div>Signup</div>
+            <div>Login</div>
+        </nav>
+    </div>
+    <div><h1 id="cartcount"> </h1>
+    <button id="gotocart">gotocart</button></div>
+    <div id="menudisplay">
+    
+    </div>
+</body>
+</html>
+<script>
+
+    async function displaymenu(){
+
+        
+     try{
+        let res=await fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
+        let rea= await res.json()
+     var arr=rea.categories
+     console.log(arr)
+     display(arr)
+    }
+    catch(er){
+        console.log("err")
+    }
+}
+
+
+    displaymenu()
+
+function display(arr){
+    var money=[]
+    var cartarray=[]
+    var count=0
+    arr.forEach(function(elem){
+        let thediv= document.createElement("div")
+      let div1= document.createElement("div")
+      let div2=document.createElement("div")
+      let img=document.createElement("img")
+      img.src=elem.strCategoryThumb
+      let id=document.createElement("p")
+      id.innerHTML=elem.idCategory
+      let price=document.createElement("p")
+       price.innerHTML=`Price: ${Math.round(Math.random()*1000)}`
+       money.push(Math.round(Math.random()*1000))
+       localStorage.setItem("sum",money)
+      var button=document.createElement("button")
+      button.innerHTML="AddCart"
+      let div3= document.createElement("div")
+
+      let cat=document.createElement("p")
+      cat.innerHTML=elem.strCategory
+      let description=document.createElement("p")
+      description.innerHTML=elem.strCategoryDescription
+      
+      div1.setAttribute("id","div1")
+      div2.setAttribute("id","div2")
+      thediv.setAttribute("id","thediv")
+  div3.append(price,button)
+
+      div1.append(img)
+      div2.append(id,div3,description)
+      thediv.append(div1,div2)
+      document.getElementById("menudisplay").append(thediv)
+
+    //   adding cart function to button
+    button.addEventListener("click",function(){
+        cartarray.push(elem)
+        count++
+        document.getElementById("cartcount").innerHTML=`Numbers of Item in your cart is ${count}`
+      localStorage.setItem("thecart",JSON.stringify(cartarray))
+    })
+
+
+    })
+
+}
+
+document.getElementById("gotocart").addEventListener("click",function(){
+    window.location.href="cart.html"
+})
+console.log(money)
+</script>

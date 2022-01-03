@@ -1,0 +1,16 @@
+#nv{
+    width:100%;
+    height:50px;
+    display: flex;
+    justify-content: right;
+    background-color: violet;
+    margin-top: 0px;
+
+}
+#nv>div{
+    margin-right:25%;
+    background-color: teal;
+    height:fit-content;
+    align-self: center;
+    font-size:30px;
+}
